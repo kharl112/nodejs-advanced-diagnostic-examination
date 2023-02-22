@@ -7,8 +7,12 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
+// models
 const User = require("../../models/user")(sequelize, DataTypes);
+// validations
 const UserValidation = require("../../validations/user.validations");
+// middlewares
+const UserMiddleware = require("../../middlewares/user.middlewares");
 
 
 router.post("/login", async (req, res) => {
@@ -33,6 +37,10 @@ router.post("/login", async (req, res) => {
         res.status(500).send({ message: "can't process request" })
     }
 });
+
+router.get("/profile", UserMiddleware.auth, async (req, res) => {
+    res.send(req.locals);
+})
 
 
 

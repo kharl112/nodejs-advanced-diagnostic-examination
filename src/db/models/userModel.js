@@ -1,9 +1,12 @@
-// Define User model using Sequelize
-
 import { DataTypes } from "sequelize";
 import { sequelize } from "../connection";
 
-const User = sequelize.define('User', {
+const User = sequelize.define('users', {
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+    },
     firstName: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -42,3 +45,5 @@ const User = sequelize.define('User', {
         allowNull: false,
     },
 });
+
+module.exports = User;

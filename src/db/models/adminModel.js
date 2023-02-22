@@ -1,7 +1,12 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../connection";
 
-export const Admin = sequelize.define('Admin', {
+const Admin = sequelize.define('admins', {
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+    },
     username: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -12,3 +17,5 @@ export const Admin = sequelize.define('Admin', {
         allowNull: false,
     },
 });
+
+module.exports = Admin;

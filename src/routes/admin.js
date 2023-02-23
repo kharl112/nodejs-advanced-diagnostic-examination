@@ -12,11 +12,11 @@ const Admin = require("../../models/admin")(sequelize, DataTypes);
 const User = require("../../models/user")(sequelize, DataTypes);
 
 //validations
-const AdminValidation = require("../../validations/admin.validations");
-const UserValidation = require("../../validations/user.validations");
+const AdminValidation = require("../validations/admin.validations");
+const UserValidation = require("../validations/user.validations");
 
 // middlewares
-const AdminMiddleware = require("../../middlewares/admin.middlewares")
+const AdminMiddleware = require("../middlewares/admin.middlewares")
 
 // METHOD POST
 router.post("/login", async (req, res) => {

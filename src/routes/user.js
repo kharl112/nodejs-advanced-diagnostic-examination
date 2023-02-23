@@ -10,9 +10,9 @@ require("dotenv").config();
 // models
 const User = require("../../models/user")(sequelize, DataTypes);
 // validations
-const UserValidation = require("../../validations/user.validations");
+const UserValidation = require("../validations/user.validations");
 // middlewares
-const UserMiddleware = require("../../middlewares/user.middlewares");
+const UserMiddleware = require("../middlewares/user.middlewares");
 
 
 router.post("/login", async (req, res) => {

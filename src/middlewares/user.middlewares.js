@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("../dbConnection");
-const User = require("../models/user")(sequelize, DataTypes);
+const { sequelize } = require("../../dbConnection");
+const User = require("../../models/user")(sequelize, DataTypes);
 require("dotenv").config();
 
 const auth = async (req, res, next) => {

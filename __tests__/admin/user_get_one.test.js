@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require("../../src/routes/app");
 require("dotenv").config()
 
-const id = "16";
+const id = "10";
 const loginPayload = { username: process.env.ADMIN_USERNAME, password: process.env.ADMIN_PASSWORD };
 
 describe(`GET /api/admin/users/${id}`, () => {
@@ -15,6 +15,8 @@ describe(`GET /api/admin/users/${id}`, () => {
             if (!admin.body.token) throw new Error("unauthenticated");
 
             const response = await request(app).get(url).set({ Authorization: admin.body.token });
+            if (!response.body.id) throw new Error("user not found");
+
             expect(response.body).toBeInstanceOf(Object);
             expect(response.body).toHaveProperty("id");
             expect(response.body.id.toString()).toMatch(id);
@@ -25,6 +27,7 @@ describe(`GET /api/admin/users/${id}`, () => {
             expect(response.body).toHaveProperty("contactPhoneNumber");
             expect(response.body).toHaveProperty("email");
             expect(response.body).toHaveProperty("username");
+
         } catch (error) {
             expect.assertions(1);
             expect(error).toHaveProperty('message')

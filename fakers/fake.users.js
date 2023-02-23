@@ -7,11 +7,11 @@ const createUserFactory = () => {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         address: faker.address.city(),
-        postCode: (Math.random() * (1000 - 9999) + 1000).toString(),
-        contactPhoneNumber: faker.phone.number(),
+        postCode: Math.floor((Math.random() * (999999 - 100000 + 1) + 100000)).toString(),
+        contactPhoneNumber: faker.phone.number().slice(0, 12),
         email: faker.internet.email(),
         username: faker.internet.userName(),
-        password: bcrypt.hashSync(faker.word.adjective(), salt),
+        password: bcrypt.hashSync(faker.word.adjective() + faker.word.noun(), salt),
     }
 }
 

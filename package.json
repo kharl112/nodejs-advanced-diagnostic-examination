@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "db:create": "node dbCreate.js",
+    "database:create": "node dbCreate.js",
     "migrate:up": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
     "seed:up": "npx sequelize-cli db:seed:all",
     "seed:undo": "npx sequelize-cli db:seed:undo",
+    "setup": "npm run database:create && npm run migrate:up && npm run seed:up",
     "test": "jest --watch"
   },
   "keywords": [],

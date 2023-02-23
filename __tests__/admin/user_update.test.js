@@ -18,10 +18,8 @@ describe('POST /api/admin/users/update', () => {
 
             const admin = await request(app).post("/api/admin/login").send(loginPayload);
             const response = await request(app).post(url).set({ Authorization: admin.body.token }).send(user);
-            console.log(response.body)
             expect(response.body.message).toMatch('user updated');
         } catch (error) {
-            console.log(error)
             expect(error).toHaveProperty('message')
         }
     });

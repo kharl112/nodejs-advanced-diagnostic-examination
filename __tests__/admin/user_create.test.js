@@ -10,10 +10,15 @@ describe('POST /api/admin/users/create', () => {
 
     it('create a user', async () => {
         try {
+            expect.assertions(1);
             const admin = await request(app).post("/api/admin/login").send(loginPayload);
-            const response = await request(app).post(url).set({ Authorization: admin.body.token }).send(generateUsers(1)[0]);
+
+            const [user] = await generateUsers(1);
+            const response = await request(app).post(url).set({ Authorization: admin.body.token }).send(user);
+
             expect(response.body.message).toMatch('user registered');
         } catch (error) {
+            expect.assertions(1);
             expect(error).toHaveProperty('message')
         }
     });

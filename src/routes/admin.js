@@ -110,7 +110,7 @@ router.delete("/users/remove/:id", AdminMiddleware.auth, async (req, res) => {
 
     try {
         const removed = await User.destroy({ where: { id } });
-        if (!removed) return res.send({ message: "user not found" });
+        if (!removed) return res.status(404).send({ message: "user not found" });
 
         res.send({ message: "user removed" });
     } catch (error) {

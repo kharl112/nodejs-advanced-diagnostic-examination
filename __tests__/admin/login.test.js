@@ -1,9 +1,10 @@
 const request = require('supertest');
 const app = require("../../src/routes/app");
+require("dotenv").config()
 
 describe('POST /api/admin/login', () => {
     const url = "/api/admin/login"
-    const loginPayload = { username: "admin", password: "password" };
+    const loginPayload = { username: process.env.ADMIN_USERNAME, password: process.env.ADMIN_PASSWORD };
     const nonExistentLoginPayload = { username: "wrongadmin", password: "password" };
     const invalidLoginPayload = { username: "admin", password: "wrongpassword" };
 

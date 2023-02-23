@@ -12,7 +12,7 @@
     "seed:up": "npx sequelize-cli db:seed:all",
     "seed:undo": "npx sequelize-cli db:seed:undo",
     "setup": "npm run database:create && npm run migrate:up && npm run seed:up",
-    "test": "jest --watch"
+    "test": "jest --watchAll"
   },
   "keywords": [],
   "author": "",

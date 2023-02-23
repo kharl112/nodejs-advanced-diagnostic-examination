@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>Home</h1>
-    <p>Welcome, {{ username }}!</p>
-    <button @click="logout">Logout</button>
+    <p>Welcome, Bro</p>
+    <!-- <button @click="logout">Logout</button> -->
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.removeItem("username");
+      localStorage.removeItem("author");
       this.$router.push("/login");
     },
   },

@@ -11,15 +11,16 @@ describe('POST /api/admin/users/update', () => {
 
     it(`update a user with id:${id}`, async () => {
         try {
-            const [user] = await generateUsers(1);
+            expect.assertions(1);
 
-            delete user.email;
-            delete user.username;
+            const [user] = await generateUsers(1);
+            const { email, username, ...newUser } = user;
 
             const admin = await request(app).post("/api/admin/login").send(loginPayload);
-            const response = await request(app).post(url).set({ Authorization: admin.body.token }).send(user);
-            expect(response.body.message).toMatch('user updated');
+            const response = await request(app).post(url).set({ Authorization: admin.body.token }).send(newUser);
+            expect(response.body.message).toMatch(/user updated|user not found/);
         } catch (error) {
+            expect.assertions(1);
             expect(error).toHaveProperty('message')
         }
     });

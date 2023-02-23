@@ -1,7 +1,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Home",
+  name: "Manage",
   data() {
     return {
       users: [],
@@ -58,6 +58,10 @@ export default {
         this.error = error.response.data.message;
       }
     },
+
+    create() {
+      this.$router.push("create");
+    },
   },
   async mounted() {
     this.getUsers();
@@ -72,7 +76,7 @@ export default {
         <v-row justify="space-between" align-items="center" class="py-5 px-3">
           <h4 class="text-h4">Manage Users</h4>
           <v-btn-toggle>
-            <v-btn elevation="0" color="primary" small>
+            <v-btn elevation="0" color="primary" small @click="create">
               <v-icon color="white">mdi-plus</v-icon>
               Create New
             </v-btn>

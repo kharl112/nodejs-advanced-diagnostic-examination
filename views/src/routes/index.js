@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/components/Login.vue'
-import Home from '@/components/Home.vue'
+import Home from '@/components/Home/Home.vue'
+
+// children - home
+import Manage from '@/components/Home/Children/Manage.vue'
+import Create from '@/components/Home/Children/Create.vue'
 import axios from "axios"
 
 Vue.use(VueRouter)
@@ -23,7 +27,14 @@ const routes = [
                 return next("/");
             }
         },
-
+        children: [
+            { path: "manage", component: Manage },
+            { path: "create", component: Create },
+            {
+                path: '',
+                redirect: 'manage',
+            },
+        ]
     },
     {
         path: '*',

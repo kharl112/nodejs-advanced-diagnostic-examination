@@ -6,7 +6,6 @@ describe('POST /api/user/login', () => {
     const url = "/api/user/login"
 
     it('tests login for user', async () => {
-        expect.assertions(1);
         try {
             const response = await request(app).post(url).send(loginPayload);
             expect(response.body).toHaveProperty('token');

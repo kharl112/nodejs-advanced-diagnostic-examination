@@ -30,6 +30,7 @@ const routes = [
         children: [
             { path: "manage", component: Manage },
             { path: "create", component: Create },
+            { path: "update/:id", component: Create },
             {
                 path: '',
                 redirect: 'manage',

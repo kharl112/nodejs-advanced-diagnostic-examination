@@ -20,6 +20,7 @@ export default {
         { text: "Last Name", value: "lastName" },
         { text: "Address", value: "address" },
         { text: "Phone Number", value: "contactPhoneNumber" },
+        { text: "Actions", value: "actions" },
       ],
     };
   },
@@ -62,6 +63,9 @@ export default {
     create() {
       this.$router.push("create");
     },
+    edit(id) {
+      this.$router.push(`update/${id}`);
+    },
   },
   async mounted() {
     this.getUsers();
@@ -101,7 +105,13 @@ export default {
           :headers="headers"
           :items="users"
           :items-per-page="5"
-        ></v-data-table>
+        >
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-btn icon @click="edit(item.id)" color="primary">
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </template>
+        </v-data-table>
       </v-col>
       <v-col cols="12" sm="10" md="10" v-else>
         <v-skeleton-loader type="table"></v-skeleton-loader>

@@ -12,6 +12,8 @@ describe('POST /api/admin/users/remove', () => {
         try {
             expect.assertions(1);
             const admin = await request(app).post("/api/admin/login").send(loginPayload);
+            if (!admin.body.token) throw new Error("unauthenticated");
+
             const response = await request(app).post(url).set({ Authorization: admin.body.token }).send(removePayload);
             const hasRemoved = response.body.message.includes("removed")
             expect(hasRemoved).toBeTruthy();

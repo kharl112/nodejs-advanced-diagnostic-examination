@@ -17,6 +17,8 @@ describe('POST /api/admin/users/update', () => {
             const { email, username, ...newUser } = user;
 
             const admin = await request(app).post("/api/admin/login").send(loginPayload);
+            if (!admin.body.token) throw new Error("unauthenticated");
+
             const response = await request(app).post(url).set({ Authorization: admin.body.token }).send(newUser);
             expect(response.body.message).toMatch(/user updated|user not found/);
         } catch (error) {

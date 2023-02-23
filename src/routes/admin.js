@@ -36,9 +36,9 @@ router.post("/login", async (req, res) => {
             expiresIn: "7d",
         });
 
-        res.send({ token })
+        return res.send({ token })
     } catch (error) {
-        res.status(500).send({ message: "can't process request" })
+        return res.status(500).send({ message: "can't process request" })
     }
 });
 
@@ -55,9 +55,9 @@ router.post("/users/create", AdminMiddleware.auth, async (req, res) => {
         const salt = bcrypt.genSaltSync(10);
         await User.create({ ...userMeta, password: bcrypt.hashSync(userMeta.password, salt) });
 
-        res.send({ message: "user registered" });
+        return res.send({ message: "user registered" });
     } catch (error) {
-        res.status(500).send({ message: "can't process request" })
+        return res.status(500).send({ message: "can't process request" })
     }
 })
 
@@ -85,9 +85,9 @@ router.post("/users/update/:id", AdminMiddleware.auth, async (req, res) => {
             await User.update(userMeta, whereIdClause);
         }
 
-        res.send({ message: "user updated" });
+        return res.send({ message: "user updated" });
     } catch (error) {
-        res.status(500).send({ message: "can't process request" })
+        return res.status(500).send({ message: "can't process request" })
     }
 })
 
@@ -99,9 +99,9 @@ router.post("/users/remove", AdminMiddleware.auth, async (req, res) => {
 
     try {
         const removed = await User.destroy({ where: { id: req.body.ids } });
-        res.send({ message: `${removed} user/s removed` });
+        return res.send({ message: `${removed} user/s removed` });
     } catch (error) {
-        res.status(500).send({ message: "can't process request" })
+        return res.status(500).send({ message: "can't process request" })
     }
 })
 
@@ -112,9 +112,9 @@ router.delete("/users/remove/:id", AdminMiddleware.auth, async (req, res) => {
         const removed = await User.destroy({ where: { id } });
         if (!removed) return res.status(404).send({ message: "user not found" });
 
-        res.send({ message: "user removed" });
+        return res.send({ message: "user removed" });
     } catch (error) {
-        res.status(500).send({ message: "can't process request" })
+        return res.status(500).send({ message: "can't process request" })
     }
 })
 
@@ -122,9 +122,9 @@ router.delete("/users/remove/:id", AdminMiddleware.auth, async (req, res) => {
 router.get("/users", AdminMiddleware.auth, async (req, res) => {
     try {
         const users = await User.findAll({ attributes: { exclude: ["password"] } });
-        res.send(users);
+        return res.send(users);
     } catch (error) {
-        res.status(500).send({ message: "can't process request" })
+        return res.status(500).send({ message: "can't process request" })
     }
 });
 
@@ -134,9 +134,9 @@ router.get("/users/:id", AdminMiddleware.auth, async (req, res) => {
         const user = await User.findOne({ where: { id }, attributes: { exclude: ["password"] } });
         if (!user) return res.status(404).send({ messag: "user not found" });
 
-        res.send(user);
+        return res.send(user);
     } catch (error) {
-        res.status(500).send({ message: "can't process request" })
+        return res.status(500).send({ message: "can't process request" })
     }
 })
 

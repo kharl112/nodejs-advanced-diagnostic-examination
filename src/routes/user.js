@@ -26,20 +26,24 @@ router.post("/login", async (req, res) => {
         if (!user) return res.status(401).send({ message: 'username does not exists' });
 
         const hash = bcrypt.compareSync(password, user.password);
-        if (!hash) return res.status(400).send({ message: "invalid password" });
+        if (!hash) return res.status(401).send({ message: "invalid password" });
 
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
             expiresIn: "7d",
         });
 
-        res.send({ token })
+        return res.send({ token })
     } catch (error) {
-        res.status(500).send({ message: "can't process request" })
+        return res.status(500).send({ message: "can't process request" })
     }
 });
 
 router.get("/profile", UserMiddleware.auth, async (req, res) => {
-    res.send(req.locals);
+    try {
+        return res.send(req.locals);
+    } catch (error) {
+        return res.status(500).send({ message: "can't process request" })
+    }
 })
 
 

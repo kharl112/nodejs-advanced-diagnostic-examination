@@ -12,6 +12,7 @@ describe('POST /api/admin/users/create', () => {
         try {
             expect.assertions(1);
             const admin = await request(app).post("/api/admin/login").send(loginPayload);
+            if (!admin.body.token) throw new Error("unauthenticated");
 
             const [user] = await generateUsers(1);
             const response = await request(app).post(url).set({ Authorization: admin.body.token }).send(user);

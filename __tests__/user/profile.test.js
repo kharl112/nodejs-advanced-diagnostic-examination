@@ -8,12 +8,15 @@ describe('GET /api/user/profile', () => {
 
     it('tests user profile', async () => {
         try {
+            expect.assertions(2);
             const user = await request(app).post("/api/user/login").send(loginPayload);
-            const response = await request(app).get(url).set({ Authorization: user.body.token });
+            if (!user.body.token) throw new Error("unauthenticated");
 
+            const response = await request(app).get(url).set({ Authorization: user.body.token });
             expect(response.body).toHaveProperty('id');
             expect(response.body.username).toMatch(loginPayload.username);
         } catch (error) {
+            expect.assertions(1);
             expect(error).toHaveProperty('message')
         }
     });

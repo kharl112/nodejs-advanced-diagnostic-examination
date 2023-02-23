@@ -11,6 +11,8 @@ describe(`GET /api/admin/users/`, () => {
         try {
             expect.assertions(2);
             const admin = await request(app).post("/api/admin/login").send(loginPayload);
+            if (!admin.body.token) throw new Error("unauthenticated");
+
             const response = await request(app).get(url).set({ Authorization: admin.body.token });
             expect(Array.isArray(response.body)).toBeTruthy();
             expect(!!response.body.length).toBeTruthy();

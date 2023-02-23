@@ -1,5 +1,6 @@
 'use strict';
 const bcrypt = require("bcryptjs");
+require("dotenv").config()
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -10,8 +11,8 @@ module.exports = {
     //  * Example:
     const salt = bcrypt.genSaltSync(10);
     await queryInterface.bulkInsert('Admins', [{
-      username: 'admin',
-      password: bcrypt.hashSync("password", salt),
+      username: process.env.ADMIN_USERNAME,
+      password: bcrypt.hashSync(process.env.ADMIN_PASSWORD, salt),
     }], {});
 
   },
